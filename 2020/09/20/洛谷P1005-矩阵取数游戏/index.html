@@ -20,20 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="题目链接题目大意定义一个“整数括号序列”：每个正整数都要有一个与之匹配的相反数，把正整数视为左括号，负整数视为右括号…">
+  <meta name="description" content="我是题目 题目大意现在有一个$n\times m$的矩阵，现在要从中取数，每次取数只能取走每行的第一个或者最后一个，并且每次取数都是对每一行操作的，也就是说每一次取数会从每一行取一个，总共$n$个，现在让你取$m$次，也就是说，$m$次之后整个矩阵都取完了，让你计算最大得分。 得分计算方法：对于第$i$次取数中取出的数字$x$，它的得分是$x*2^i$（注意，一次取数取了$n$个数字！），然后请你">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CF286C-Main-Sequence">
-<meta property="og:url" content="http://example.com/2020/07/23/CF286C-Main-Sequence/index.html">
+<meta property="og:title" content="洛谷P1005-矩阵取数游戏">
+<meta property="og:url" content="http://example.com/2020/09/20/%E6%B4%9B%E8%B0%B7P1005-%E7%9F%A9%E9%98%B5%E5%8F%96%E6%95%B0%E6%B8%B8%E6%88%8F/index.html">
 <meta property="og:site_name" content="tzw的小窝~">
-<meta property="og:description" content="题目链接题目大意定义一个“整数括号序列”：每个正整数都要有一个与之匹配的相反数，把正整数视为左括号，负整数视为右括号…">
+<meta property="og:description" content="我是题目 题目大意现在有一个$n\times m$的矩阵，现在要从中取数，每次取数只能取走每行的第一个或者最后一个，并且每次取数都是对每一行操作的，也就是说每一次取数会从每一行取一个，总共$n$个，现在让你取$m$次，也就是说，$m$次之后整个矩阵都取完了，让你计算最大得分。 得分计算方法：对于第$i$次取数中取出的数字$x$，它的得分是$x*2^i$（注意，一次取数取了$n$个数字！），然后请你">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-23T01:12:30.000Z">
-<meta property="article:modified_time" content="2020-09-19T23:18:09.653Z">
+<meta property="article:published_time" content="2020-09-20T03:11:06.000Z">
+<meta property="article:modified_time" content="2020-09-20T04:07:23.995Z">
 <meta property="article:author" content="moonlateQZ">
-<meta property="article:tag" content="-贪心">
+<meta property="article:tag" content="区间dp">
+<meta property="article:tag" content="高精度">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2020/07/23/CF286C-Main-Sequence/">
+<link rel="canonical" href="http://example.com/2020/09/20/%E6%B4%9B%E8%B0%B7P1005-%E7%9F%A9%E9%98%B5%E5%8F%96%E6%95%B0%E6%B8%B8%E6%88%8F/">
 
 
 <script id="page-configurations">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>CF286C-Main-Sequence | tzw的小窝~</title>
+  <title>洛谷P1005-矩阵取数游戏 | tzw的小窝~</title>
   
 
 
@@ -186,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/07/23/CF286C-Main-Sequence/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/09/20/%E6%B4%9B%E8%B0%B7P1005-%E7%9F%A9%E9%98%B5%E5%8F%96%E6%95%B0%E6%B8%B8%E6%88%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -199,7 +200,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CF286C-Main-Sequence
+          洛谷P1005-矩阵取数游戏
         </h1>
 
         <div class="post-meta">
@@ -208,16 +209,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-07-23 09:12:30" itemprop="dateCreated datePublished" datetime="2020-07-23T09:12:30+08:00">2020-07-23</time>
+              <time title="创建时间：2020-09-20 11:11:06 / 修改时间：12:07:23" itemprop="dateCreated datePublished" datetime="2020-09-20T11:11:06+08:00">2020-09-20</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-20 07:18:09" itemprop="dateModified" datetime="2020-09-20T07:18:09+08:00">2020-09-20</time>
-              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -237,17 +232,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h6 id="题目链接"><a href="#题目链接" class="headerlink" title="题目链接"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF286C">题目链接</a></h6><h3 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h3><p>定义一个“整数括号序列”：每个正整数都要有一个与之匹配的相反数，把正整数视为左括号，负整数视为右括号…<a id="more"></a></p>
-<p>设$lsum_i$,$rsum_i$为位置$1$~$i$的左、右括号数量，则这个序列要求每个左（右）括号都有对应的右（左）括号。</p>
-<p>现在给你$N$个<strong>正</strong>整数，给定其中$M$个位置，对其取负，问能否将另一些位置的正整数也取负，使得这个“整数括号序列”合法。如果可以，输出这个修改后的序列。</p>
-<p>$N\le 10^6,M\le N$</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个$N$，接下来一行$N$个<strong>正整数</strong>，下面一行一个$M$，然后$M$个数$q_i$紧接其后，表示将$a_{q_i}$变成原来的数的相反数。</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>如果不能把更改后的数组变得合法，就输出<code>NO</code>，否则输出<code>YES</code>，并且输出更改后的合法序列。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>我们从右往左贪心（因为我们要根据右括号去匹配左括号），然后如果当现在的$a_i&lt; 0$我们就把它推到当前的栈里，如果遇到了一个正整数，那就看看这个数跟栈顶匹不匹配，匹配就pop掉栈顶，否则我们就把当前这个正整数变为它的相反数，然后也推进栈里面，试着跟后面的正整数匹配。</p>
-<p>如果栈不空，那么就匹配不了，就输出<code>NO</code>,否则输出<code>YES</code>，然后再把我们刚刚的$a$数组输出即珂。</p>
-<h3 id="ACcode"><a href="#ACcode" class="headerlink" title="$ACcode$"></a>$ACcode$</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> F(i,l,r) for(register int i=l;i&lt;=r;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mem(a,b) memset(a,b,sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> p_b push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> m_p make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> il inline</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1000005</span>],q;</span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; S;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    F(i,<span class="number">1</span>,n) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;m);</span><br><span class="line">    F(i,<span class="number">1</span>,m) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;q),a[q]=-a[q];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;<span class="number">0</span>;i--) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a[i]&gt;=<span class="number">0</span>&amp;&amp;!S.empty()&amp;&amp;S.top()==-a[i]) S.pop();</span><br><span class="line">        <span class="keyword">else</span> S.push(a[i]*=a[i]&gt;<span class="number">0</span>?<span class="number">-1</span>:<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!S.empty()) <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">&quot;NO&quot;</span>),<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;YES&quot;</span>);</span><br><span class="line">    F(i,<span class="number">1</span>,n) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,a[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+        <p><strong><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1005">我是题目</a></strong></p>
+<h3 id="题目大意"><a href="#题目大意" class="headerlink" title="题目大意"></a>题目大意</h3><p>现在有一个$n\times m$的矩阵，现在要从中取数，每次取数只能<strong>取走</strong>每行的第一个或者最后一个，并且每次取数都是对每一行操作的，也就是说每一次取数会从每一行取一个，总共$n$个，现在让你取$m$次，也就是说，$m$次之后整个矩阵都取完了，让你计算最大得分。</p>
+<p>得分计算方法：对于第$i$次取数中取出的数字$x$，它的得分是$x*2^i$（注意，一次取数取了$n$个数字！），然后请你求出最大的得分是多少…<a id="more"></a></p>
+<h3 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h3><p>我觉得这个样例一开始有点难以理解，因为我开始没看懂题目，于是这里解释一下：</p>
+<p>第一次取走第一行的$1$以及第二行的$2$，得分是$1<em>2^1+2</em>2^1=6$</p>
+<p>第二次取走第一行的$2$以及第二行的$3$，得分是$2<em>2^2+3</em>2^2=20$</p>
+<p>第三次取走第一行的$3$以及第二行的$4$，得分是$3<em>2^3+4</em>2^3=56$</p>
+<p>所以总得分是：$6+20+56=82$</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p><del>显然的</del>区间$dp$啊！因为每一行的取值不会影响其他行的计算，所以我们对于每一行取计算它取数$m$次的最大值，最后再加起来就好了。我们设计状态$dp_{l,r,k}$表示在第$k$行，对于区间$[l,r]$的最大得分是多少，然后可以得出状态转移方程：$dp_{l,r,k}=max(dp[l+1][r][k]+mp[k][l],dp[l][r-1][k]+mp[k][r])*2$</p>
+<p>这个转移方程说的是什么呢？就是如果我们取了第$k$行的最左边，那么我们就把当前区间的左端点加上$1$，并且加上最左边的那个值；如果取右边，则同理，缩小右端点并且加上最右边的那个值。最后的那个$*2$是什么意思？读题，因为每次取数的得分是要乘上$2^i$的，所以我们每一次都乘上$2$，那么自然的，每一次乘上的就有了这次的$*2$及之前一共乘的$2^{i-1}$，乘一下就是$2_i$了。</p>
+<p>显然，此处的$k$是枚举的，且在状态转移中是不变的，所以这一维便可以优化掉，也就是$dp_{i,j}$，只需要在计算每一行时$memset$为$0$就好了。</p>
+<p>关于精度问题的话，显然$long\ long$是远远不够的，那么就是高精度了，<del>但是您觉得我是那种写高精度的人吗？</del><code>__int128</code>直接上，嘿嘿嘿。（$128$位是够得，注意，$NOIp$系列比赛中是不可使用的，老老实实写高精度吧/fad）</p>
+<h3 id="ACcode"><a href="#ACcode" class="headerlink" title="$ACcode:$"></a>$ACcode:$</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> F(i,l,r) for(register int i=l;i&lt;=r;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> D(i,r,l) for(register int i=r;i&gt;=l;i--)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mem(a,b) memset(a,b,sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> p_b push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> m_p make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> il inline</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> int __int128</span></span><br><span class="line"><span class="comment">//define一下，__int128太长了:-(</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> ch=getchar();</span><br><span class="line">    <span class="keyword">int</span> num=<span class="number">0</span>,k=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>((ch&gt;<span class="string">&#x27;9&#x27;</span>||ch&lt;<span class="string">&#x27;0&#x27;</span>)&amp;&amp;ch!=<span class="string">&#x27;-&#x27;</span>) ch=getchar();</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">&#x27;-&#x27;</span>) k=<span class="number">-1</span>,ch=getchar();</span><br><span class="line">    <span class="keyword">while</span>(ch&lt;=<span class="string">&#x27;9&#x27;</span>&amp;&amp;ch&gt;=<span class="string">&#x27;0&#x27;</span>) num=num*<span class="number">10</span>+ch-<span class="string">&#x27;0&#x27;</span>,ch=getchar();</span><br><span class="line">    <span class="keyword">return</span> num*k;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">write</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x&gt;<span class="number">9</span>) write(x/<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">85</span>][<span class="number">85</span>],ans,mp[<span class="number">85</span>][<span class="number">85</span>];</span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    n=fr(),m=fr();</span><br><span class="line">    F(i,<span class="number">1</span>,n) F(j,<span class="number">1</span>,m) mp[i][j]=fr();</span><br><span class="line">    F(i,<span class="number">1</span>,n) &#123;</span><br><span class="line">        F(len,<span class="number">0</span>,m) &#123;</span><br><span class="line">            F(l,<span class="number">1</span>,m) &#123;<span class="comment">//区间dp套路写法/xyx</span></span><br><span class="line">                <span class="keyword">int</span> r=l+len;</span><br><span class="line">                <span class="keyword">if</span>(r&gt;m) <span class="keyword">break</span>;</span><br><span class="line">                dp[l][r]=max(dp[l+<span class="number">1</span>][r]+mp[i][l],dp[l][r<span class="number">-1</span>]+mp[i][r])*<span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans+=dp[<span class="number">1</span>][m];</span><br><span class="line">        mem(dp,<span class="number">0</span>);<span class="comment">//不要忘记清0！</span></span><br><span class="line">    &#125;</span><br><span class="line">    write(ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -258,7 +255,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"># -贪心</a>
+              <a href="/tags/%E5%8C%BA%E9%97%B4dp/" rel="tag"># 区间dp</a>
+              <a href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/" rel="tag"># 高精度</a>
           </div>
 
         
@@ -267,13 +265,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/23/%E6%B4%9B%E8%B0%B7P4053-JSOI2007-%E5%BB%BA%E7%AD%91%E6%8A%A2%E4%BF%AE/" rel="prev" title="洛谷P4053[JSOI2007]建筑抢修">
-      <i class="fa fa-chevron-left"></i> 洛谷P4053[JSOI2007]建筑抢修
+    <a href="/2020/07/23/CF286C-Main-Sequence/" rel="prev" title="CF286C-Main-Sequence">
+      <i class="fa fa-chevron-left"></i> CF286C-Main-Sequence
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/09/20/%E6%B4%9B%E8%B0%B7P1005-%E7%9F%A9%E9%98%B5%E5%8F%96%E6%95%B0%E6%B8%B8%E6%88%8F/" rel="next" title="洛谷P1005-矩阵取数游戏">
-      洛谷P1005-矩阵取数游戏 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -332,7 +327,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E9%93%BE%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">题目链接</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number"></span> <span class="nav-text">题目大意</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%A0%BC%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">输入格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%A0%BC%E5%BC%8F"><span class="nav-number"></span> <span class="nav-text">输出格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number"></span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACcode"><span class="nav-number"></span> <span class="nav-text">$ACcode$</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%A4%A7%E6%84%8F"><span class="nav-number">1.</span> <span class="nav-text">题目大意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E4%BE%8B%E8%A7%A3%E9%87%8A"><span class="nav-number">2.</span> <span class="nav-text">样例解释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACcode"><span class="nav-number">4.</span> <span class="nav-text">$ACcode:$</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
