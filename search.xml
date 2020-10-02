@@ -141,4 +141,27 @@
         <tag>数论</tag>
       </tags>
   </entry>
+  <entry>
+    <title>CF839D Winter is here 题解</title>
+    <url>/2020/10/02/CF839D-Winter-is-here-%E9%A2%98%E8%A7%A3/</url>
+    <content><![CDATA[<p><a href="https://www.luogu.com.cn/problem/CF839D">题面在这！</a></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>对于这个数组的每个区间分别做$\gcd$，然后再求贡献，这样显然不行…<a id="more"></a>怎么办？我们就从$\gcd$入手，我们枚举$\gcd$，然后求助每个可行的$\gcd$在这个数组中的贡献是多少。</p>
+<p>现在我们设置几个数组：</p>
+<p>$cnt_i$表示在原来的数组中$i$出现的次数，$dp_i$表示所有$\gcd$为$i$的区间的总长度（由乘法分配律可知，每个区间的长度合并之后对于整体贡献的影响不会改变）</p>
+<p>如果说当前我们求出了$i$的倍数的个数$res$，那么它的$dp$值就是：</p>
+<p>$\sum\limits_{i=1}^{res}\tbinom{res}{i}\times i$</p>
+<p>=$\sum\limits_{i=1}^{res}\frac{res!\times i}{i!(res-i)!}$</p>
+<p>=$res\times \sum\limits_{i=1}^{res}\frac{(res-1)!}{(i-1)!(res-i)!}$</p>
+<p>=$res\times \sum\limits_{i=0}^{res-1}\tbinom{res-1}{i}$</p>
+<p>由二项式定理(或者组合数的意义)可以得到：</p>
+<p>=$res*2^{res-1}$</p>
+<p>我们就可以愉快的求解了！</p>
+<h3 id="ACcode"><a href="#ACcode" class="headerlink" title="$ACcode$"></a>$ACcode$</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> F(i,l,r) for(register int i=l;i&lt;=r;i++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> D(i,r,l) for(register int i=r;i&gt;=l;i--)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mem(a,b) memset(a,b,sizeof(a))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> p_b push_back</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> m_p make_pair</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> il inline</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF=<span class="number">0x3f3f3f3f</span>,mod=<span class="number">1e9</span>+<span class="number">7</span>,N=<span class="number">1e6</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> cnt[N],fac[N]=&#123;<span class="number">1</span>&#125;,n;</span><br><span class="line"><span class="keyword">int</span> ans,dp[N],a[N],maxn;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    F(i,<span class="number">1</span>,n) fac[i]=fac[i<span class="number">-1</span>]*<span class="number">2l</span>l%mod;<span class="comment">//预处理出2^i</span></span><br><span class="line">    F(i,<span class="number">1</span>,n) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a[i]);</span><br><span class="line">        maxn=max(maxn,a[i]);<span class="comment">//求出枚举i(gcd)的范围</span></span><br><span class="line">        cnt[a[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line">    D(i,maxn,<span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> res=<span class="number">0</span>;</span><br><span class="line">        F(j,i,maxn) res+=cnt[j],j+=i<span class="number">-1</span>;<span class="comment">//res意义如上文。这里j其实就是+=i了，奇怪的写法不要在意</span></span><br><span class="line">        <span class="keyword">if</span>(res) &#123;</span><br><span class="line">            dp[i]=fac[res<span class="number">-1</span>]*<span class="number">1l</span>l*res%mod;<span class="comment">//公式</span></span><br><span class="line">            F(j,<span class="number">2</span>*i,maxn) dp[i]=(dp[i]+mod-dp[j])%mod,j+=i<span class="number">-1</span>;<span class="comment">//这里就是说把多出来的贡献减掉，因为我们只要i的贡献就好了i的倍数的都不要。记住+mod防止负数！</span></span><br><span class="line">            ans=(ans+dp[i]*<span class="number">1l</span>l*i%mod)%mod;<span class="comment">//求出贡献</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans);<span class="comment">//输出</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>数论</tag>
+        <tag>二项式定理</tag>
+      </tags>
+  </entry>
 </search>
