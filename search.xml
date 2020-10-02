@@ -125,7 +125,7 @@
     <content><![CDATA[<p><a href="https://www.luogu.com.cn/problem/P2398/">我是题目！</a></p>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>考虑欧拉函数有个性质：</p>
 <p>$\sum\limits_{d|n}\varphi(d)=n$</p>
-<p>那么在这道题里面我们把$\gcd(i,j)$当做$n$ 带入，然后开始愉快的推式子！（我的步骤很详尽的！）</p>
+<p>那么在这道题里面我们把$\gcd(i,j)$当做$n$ 带入，然后开始愉快的推式子！（我的步骤很详尽的！）…  <a id="more"></a></p>
 <p>所以:</p>
 <p>$\ \ \sum\limits_{i=1}^n\sum\limits_{j=1}^n \gcd(i,j)$</p>
 <p>=$\sum\limits_{i=1}^n\sum\limits_{j=1}^n\sum\limits_{d|\gcd(i,j)} \varphi(d) $</p>
