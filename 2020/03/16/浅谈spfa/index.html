@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="算法简简简介$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 （为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！）…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈spfa">
+<meta property="og:url" content="http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="算法简简简介$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 （为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！）…">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NR5l9.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NfEE6.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NICi6.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8Nox4x.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NvNGj.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NzBUU.jpg">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NL9nU.jpg">
+<meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/j2vhyqwj.png">
+<meta property="article:published_time" content="2020-03-16T05:02:19.000Z">
+<meta property="article:modified_time" content="2020-04-25T04:04:34.557Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="coding">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/17/8NR5l9.jpg">
+
+
+<link rel="canonical" href="http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/","path":"2020/03/16/浅谈spfa/","title":"浅谈spfa"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>浅谈spfa | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E7%AE%80%E7%AE%80%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">算法简简简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">算法讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%9B%BE%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">流程图：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E8%B0%88%E8%AF%AF%E5%9B%BD"><span class="nav-number">2.2.</span> <span class="nav-text">空谈误国</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-spfa-%E3%81%AE%E6%A2%97"><span class="nav-number">2.3.</span> <span class="nav-text">关于$spfa$の梗</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="浅谈spfa | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浅谈spfa
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-03-16 13:02:19" itemprop="dateCreated datePublished" datetime="2020-03-16T13:02:19+08:00">2020-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2020-04-25 12:04:34" itemprop="dateModified" datetime="2020-04-25T12:04:34+08:00">2020-04-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="算法简简简介"><a href="#算法简简简介" class="headerlink" title="算法简简简介"></a><del>算法简简简介</del></h2><p>$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 <del>（为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！）</del>…</p>
+<span id="more"></span>
+
+<h2 id="算法讲解"><a href="#算法讲解" class="headerlink" title="算法讲解"></a>算法讲解</h2><p>回归正题，$spfa$主要是用一个$dis$数组来存储源点到每个节点的最短路，然后先将$dis$数组初始化为一个极大值，使得后面在松弛（其实就是求最短路啦）的时候能够被更新。我们把所有节点推到一个队列里面，然后每次取出队首进行松弛，如果说更新后的节点不在队列里面的话，就把它给推进队列里面，当队列为空时，最短路也就更新出来的QωQ。复杂度为 $\Theta(KN)$ ($k$是一个常数，表示每个点进队的次数，随机图的话，$k$就在$2$左右。但是如果出题人<del>毒瘤</del>故意卡的话，$k$就会退化成边的条数)。</p>
+<h3 id="流程图："><a href="#流程图：" class="headerlink" title="流程图："></a>流程图：</h3><p><img src="https://s1.ax1x.com/2020/03/17/8NR5l9.jpg" alt="a"><br><strong>我们用这样一张无向图来作为例子。以节点1为起点，节点5为终点。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NfEE6.jpg" alt="b"><br><strong>首先，我们将节点1推入队列之中，然后将dis[1]设为0。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NICi6.jpg" alt="c"><br><strong>其次，我们将1弹出队列，并将与其连着的2，3推入队列中，并将dis[2]更新为dis[1]+5&#x3D;5，dis[3]更新为dis[1]+3&#x3D;3。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8Nox4x.jpg" alt="d"><br><strong>接着，我们将队首的2弹出，然后将dis[4]更新为dis[2]+2&#x3D;7，将dis[5]更新为dis[2]+1&#x3D;6，并将这两个点推入队列。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NvNGj.jpg" alt="e"><br><strong>再接着，我们将队首的3弹出，然后发现dis[3]+5&gt;dis[4]的，所以我们不能更新dis[4]，但是我们发现dis[5]可以更新，于是我们就把dis[5]更新为dis[3]+1&#x3D;4。但是因为4处于队列中，我们就不再push进去。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NzBUU.jpg" alt="f"><br><strong>我们把队首的4弹出，发现什么也更新不了，于是啥也不做。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NL9nU.jpg" alt="g"><br><strong>然后我们再次发现弹出5后也是啥也做不了……，于是最短路就求完啦！！！</strong></p>
+<h3 id="空谈误国"><a href="#空谈误国" class="headerlink" title="空谈误国"></a><del>空谈误国</del></h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3371">来做一道spfa模板题吧！</a><br>$$ACcode$$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> p_b push_back</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> m_p make_pair</span></span><br><span class="line"><span class="comment">//方便书写</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> INF=<span class="number">2147483647</span>,N=<span class="number">500005</span>;</span><br><span class="line"><span class="type">int</span> n,m,st;<span class="comment">//分别表示 点数 边数 起点</span></span><br><span class="line"><span class="type">int</span> u,v,w;<span class="comment">//表示从点u-&gt;v的权值为w</span></span><br><span class="line">vector&lt;pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; &gt; mp[N];<span class="comment">//此处使用邻接表来存图，其实这个随意，看个人习惯</span></span><br><span class="line"><span class="comment">//因为还要存边权，所以用pair（struct也是可以的）</span></span><br><span class="line"><span class="type">bool</span> in[N];<span class="comment">//判断一个点在不在队列中</span></span><br><span class="line"><span class="type">int</span> dis[N];<span class="comment">//用来存储源点到所有点的最短距离</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">spfa</span><span class="params">(<span class="type">int</span> s)</span> </span>&#123;<span class="comment">//函数开始，传参传的是源点</span></span><br><span class="line">    queue&lt;<span class="type">int</span>&gt; q;<span class="comment">//定义队列（你也可以手写）</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) dis[i]=INF;<span class="comment">//将dis数组更新为极大值，既然本题中要求要2^31 -1，那么INF就特事特办</span></span><br><span class="line">    <span class="built_in">memset</span>(in,<span class="literal">false</span>,<span class="built_in">sizeof</span>(in));<span class="comment">//一定要初始化（除非你把数组定义在函数里面）</span></span><br><span class="line">    q.<span class="built_in">push</span>(st);<span class="comment">//将源点推进队列中</span></span><br><span class="line">    in[st]=<span class="literal">true</span>;<span class="comment">//将源点标记为在队列中</span></span><br><span class="line">    dis[st]=<span class="number">0</span>;<span class="comment">//源点到它自己的距离当然是0啦~</span></span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>())&#123;<span class="comment">//只要队列非空</span></span><br><span class="line">        <span class="type">int</span> x=q.<span class="built_in">front</span>();q.<span class="built_in">pop</span>();<span class="comment">//取出队首&amp;弹出</span></span><br><span class="line">        in[x]=<span class="literal">false</span>;<span class="comment">//把弹出的元素标记为不在队列里面</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;mp[x].<span class="built_in">size</span>();i++) &#123;<span class="comment">//遍历每一个跟x有边的节点</span></span><br><span class="line">            <span class="type">int</span> to=mp[x][i].first;<span class="comment">//我们要更新的节点</span></span><br><span class="line">            <span class="type">int</span> w=mp[x][i].second;<span class="comment">//边权</span></span><br><span class="line">            <span class="keyword">if</span>(dis[to]&gt;dis[x]+w) &#123;<span class="comment">//如果说可以更新的话（我们要去的点离源点的长度比现在去这个点的长度达，我们就更新）</span></span><br><span class="line">                dis[to]=dis[x]+w;<span class="comment">//松弛</span></span><br><span class="line">                <span class="keyword">if</span>(!in[to]) &#123;<span class="comment">//如果说 更新后 的节点没有进队</span></span><br><span class="line">                    q.<span class="built_in">push</span>(to);<span class="comment">//那么就把它推进去更新其他的点</span></span><br><span class="line">                    in[to]=<span class="literal">true</span>;<span class="comment">//把这个点标记为在队列中</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;n,&amp;m,&amp;st);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">        mp[u].<span class="built_in">p_b</span>(<span class="built_in">m_p</span>(v,w));</span><br><span class="line">        <span class="comment">//mp[v].p_b(m_p(u,w))去掉注释就是双向边（无向边）</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">spfa</span>(st);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,dis[i]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关于-spfa-の梗"><a href="#关于-spfa-の梗" class="headerlink" title="关于$spfa$の梗"></a>关于$spfa$の梗</h3><p>$spfa$一直是受人欢迎的最短路算法，直到那个$NOI \ 2018$黑暗的$Day1$:<br><img src="https://cdn.luogu.com.cn/upload/image_hosting/j2vhyqwj.png"></p>
+<p>于是网上便广大流传：”我$spfa$了”之类的话，所以说笔者在此处劝诫大家：在不是判负环或者单纯最短路的时候，千万不要用$spfa$，因为你永远也不会知道你遇见的出题人有没有那么<del>毒瘤</del>爱卡算法。（老老实实写$Dijkstra$吧！）</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/coding/" rel="tag"># coding</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/03/20/%E6%B4%9B%E8%B0%B7P1342-%E8%AF%B7%E6%9F%AC%E9%A2%98%E8%A7%A3/" rel="next" title="洛谷P1342 请柬题解">
+                  洛谷P1342 请柬题解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
