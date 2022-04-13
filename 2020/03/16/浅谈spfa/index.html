@@ -6,26 +6,26 @@
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/project/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/project/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/project/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/project/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/project/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"moonlateqz.github.io","root":"/project/","images":"/project/images","scheme":"Pisces","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/project/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/project/js/config.js"></script>
 
-    <meta name="description" content="算法简简简介$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 （为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！）…">
+    <meta name="description" content="算法简简简介$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 （为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！） 算法讲解回归正题，$spfa$主要是用一个$dis$数组来存储源点到每个节点的最短路，然后先将$dis$数组初始化为一个极大值，使得后面在松弛（其实就是求最短路啦）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈spfa">
-<meta property="og:url" content="http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/index.html">
+<meta property="og:url" content="https://moonlateqz.github.io/project/2020/03/16/%E6%B5%85%E8%B0%88spfa/index.html">
 <meta property="og:site_name" content="τζω的小窝">
-<meta property="og:description" content="算法简简简介$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 （为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！）…">
+<meta property="og:description" content="算法简简简介$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 （为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！） 算法讲解回归正题，$spfa$主要是用一个$dis$数组来存储源点到每个节点的最短路，然后先将$dis$数组初始化为一个极大值，使得后面在松弛（其实就是求最短路啦）">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NR5l9.jpg">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NfEE6.jpg">
@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/17/8NL9nU.jpg">
 <meta property="og:image" content="https://cdn.luogu.com.cn/upload/image_hosting/j2vhyqwj.png">
 <meta property="article:published_time" content="2020-03-16T05:02:19.000Z">
-<meta property="article:modified_time" content="2022-04-11T14:18:26.925Z">
+<meta property="article:modified_time" content="2022-04-13T00:54:03.320Z">
 <meta property="article:author" content="τζω">
 <meta property="article:tag" content="Coding">
 <meta property="article:tag" content="spfa">
@@ -45,11 +45,11 @@
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/03/17/8NR5l9.jpg">
 
 
-<link rel="canonical" href="http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/">
+<link rel="canonical" href="https://moonlateqz.github.io/project/2020/03/16/%E6%B5%85%E8%B0%88spfa/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/","path":"2020/03/16/浅谈spfa/","title":"浅谈spfa"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://moonlateqz.github.io/project/2020/03/16/%E6%B5%85%E8%B0%88spfa/","path":"2020/03/16/浅谈spfa/","title":"浅谈spfa"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>浅谈spfa | τζω的小窝</title>
@@ -60,7 +60,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
+    <link rel="stylesheet" href="/project/css/noscript.css">
   </noscript>
 </head>
 
@@ -72,12 +72,15 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
-    <a href="/" class="brand" rel="start">
+    <a href="/project/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">τζω的小窝</p>
       <i class="logo-line"></i>
@@ -86,15 +89,46 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/project/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/project/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/project/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-archives"><a href="/project/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
         
@@ -126,28 +160,53 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="τζω"
+      src="/project/images/avatar.jpg">
   <p class="site-author-name" itemprop="name">τζω</p>
   <div class="site-description" itemprop="description"></div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/archives/">
+        <a href="/project/archives/">
           <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
+          <a href="/project/tags/">
         <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">tags</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/moonlateQZ" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;moonlateQZ" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:tzwqaq@163.com" title="E-Mail → mailto:tzwqaq@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
 
 
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.luogu.com.cn/user/117648" title="https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;user&#x2F;117648" rel="noopener" target="_blank">我的洛谷账号</a>
+        </li>
+    </ul>
+  </div>
 
         </div>
       </div>
+        <div class="back-to-top animated" role="button" aria-label="Back to top">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
     </div>
   </aside>
   <div class="sidebar-dimmer"></div>
@@ -156,10 +215,6 @@
     </header>
 
     
-  <div class="back-to-top" role="button" aria-label="Back to top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -177,10 +232,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/03/16/%E6%B5%85%E8%B0%88spfa/">
+    <link itemprop="mainEntityOfPage" href="https://moonlateqz.github.io/project/2020/03/16/%E6%B5%85%E8%B0%88spfa/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/project/images/avatar.jpg">
       <meta itemprop="name" content="τζω">
     </span>
 
@@ -213,10 +268,24 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-04-11 22:18:26" itemprop="dateModified" datetime="2022-04-11T22:18:26+08:00">2022-04-11</time>
+      <time title="Modified: 2022-04-13 08:54:03" itemprop="dateModified" datetime="2022-04-13T08:54:03+08:00">2022-04-13</time>
     </span>
 
   
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="Symbols count in article">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">Symbols count in article: </span>
+      <span>966</span>
+    </span>
 </div>
 
         </div>
@@ -226,9 +295,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="算法简简简介"><a href="#算法简简简介" class="headerlink" title="算法简简简介"></a><del>算法简简简介</del></h2><p>$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 <del>（为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！）</del>…</p>
-<span id="more"></span>
-
+        <h2 id="算法简简简介"><a href="#算法简简简介" class="headerlink" title="算法简简简介"></a><del>算法简简简介</del></h2><p>$spfa$，即$Shortest \ Path \ Faster \ Algorithm$，是$Bellman-Ford$的一个优化版本 <del>（为什么Dijkstra优化了还是叫Dijkstra，你个spfa就可以改名啊！）</del></p>
 <h2 id="算法讲解"><a href="#算法讲解" class="headerlink" title="算法讲解"></a>算法讲解</h2><p>回归正题，$spfa$主要是用一个$dis$数组来存储源点到每个节点的最短路，然后先将$dis$数组初始化为一个极大值，使得后面在松弛（其实就是求最短路啦）的时候能够被更新。我们把所有节点推到一个队列里面，然后每次取出队首进行松弛，如果说更新后的节点不在队列里面的话，就把它给推进队列里面，当队列为空时，最短路也就更新出来的QωQ。复杂度为 $\Theta(KN)$ ($k$是一个常数，表示每个点进队的次数，随机图的话，$k$就在$2$左右。但是如果出题人<del>毒瘤</del>故意卡的话，$k$就会退化成边的条数)。</p>
 <h3 id="流程图："><a href="#流程图：" class="headerlink" title="流程图："></a>流程图：</h3><p><img src="https://s1.ax1x.com/2020/03/17/8NR5l9.jpg" alt="a"><br><strong>我们用这样一张无向图来作为例子。以节点1为起点，节点5为终点。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NfEE6.jpg" alt="b"><br><strong>首先，我们将节点1推入队列之中，然后将dis[1]设为0。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NICi6.jpg" alt="c"><br><strong>其次，我们将1弹出队列，并将与其连着的2，3推入队列中，并将dis[2]更新为dis[1]+5&#x3D;5，dis[3]更新为dis[1]+3&#x3D;3。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8Nox4x.jpg" alt="d"><br><strong>接着，我们将队首的2弹出，然后将dis[4]更新为dis[2]+2&#x3D;7，将dis[5]更新为dis[2]+1&#x3D;6，并将这两个点推入队列。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NvNGj.jpg" alt="e"><br><strong>再接着，我们将队首的3弹出，然后发现dis[3]+5&gt;dis[4]的，所以我们不能更新dis[4]，但是我们发现dis[5]可以更新，于是我们就把dis[5]更新为dis[3]+1&#x3D;4。但是因为4处于队列中，我们就不再push进去。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NzBUU.jpg" alt="f"><br><strong>我们把队首的4弹出，发现什么也更新不了，于是啥也不做。</strong><br><img src="https://s1.ax1x.com/2020/03/17/8NL9nU.jpg" alt="g"><br><strong>然后我们再次发现弹出5后也是啥也做不了……，于是最短路就求完啦！！！</strong></p>
 <h3 id="空谈误国"><a href="#空谈误国" class="headerlink" title="空谈误国"></a><del>空谈误国</del></h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3371">来做一道spfa模板题吧！</a><br>$$ACcode$$</p>
@@ -245,9 +312,9 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Coding/" rel="tag"># Coding</a>
-              <a href="/tags/spfa/" rel="tag"># spfa</a>
-              <a href="/tags/Algorithms/" rel="tag"># Algorithms</a>
+              <a href="/project/tags/Coding/" rel="tag"><i class="fa fa-tag"></i> Coding</a>
+              <a href="/project/tags/spfa/" rel="tag"><i class="fa fa-tag"></i> spfa</a>
+              <a href="/project/tags/Algorithms/" rel="tag"><i class="fa fa-tag"></i> Algorithms</a>
           </div>
 
         
@@ -256,7 +323,7 @@
             <div class="post-nav-item">
             </div>
             <div class="post-nav-item">
-                <a href="/2020/03/20/%E6%B4%9B%E8%B0%B7P1342-%E8%AF%B7%E6%9F%AC%E9%A2%98%E8%A7%A3/" rel="next" title="洛谷P1342 请柬题解">
+                <a href="/project/2020/03/20/%E6%B4%9B%E8%B0%B7P1342-%E8%AF%B7%E6%9F%AC%E9%A2%98%E8%A7%A3/" rel="next" title="洛谷P1342 请柬题解">
                   洛谷P1342 请柬题解 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -285,27 +352,60 @@
   </span>
   <span class="author" itemprop="copyrightHolder">τζω</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
-  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="Symbols count total">NaNm</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
     </div>
   </footer>
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+<script src="/project/js/comments.js"></script><script src="/project/js/utils.js"></script><script src="/project/js/motion.js"></script><script src="/project/js/next-boot.js"></script>
 
   
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/project/js/third-party/search/local-search.js"></script>
 
 
 
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
 
+  <script src="https://cdn.jsdelivr.net/npm/quicklink@2.2.0/dist/quicklink.umd.js" integrity="sha256-4kQf9z5ntdQrzsBC3YSHnEz02Z9C1UeW/E9OgnvlzSY=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://moonlateqz.github.io/project/2020/03/16/%E6%B5%85%E8%B0%88spfa/"}</script>
+  <script src="/project/js/third-party/quicklink.js"></script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
 
 </body>
 </html>
